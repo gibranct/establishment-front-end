@@ -1,3 +1,4 @@
+
 {
   "name": "react-project-template-with-typescript",
   "version": "0.1.0",
@@ -55,7 +56,6 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "prettier": "^2.1.2",
-    "reactotron-react-js": "^3.3.7"
+    "prettier": "^2.1.2"
   }
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom'
 
-import './config/ReactotronConfig';
 import GlobalStyle from './styles/global';
 
 const App = () => {
