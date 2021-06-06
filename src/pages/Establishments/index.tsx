@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Table, Popconfirm, Button } from 'antd';
+import { Table, Popconfirm, Button, Space, Input } from 'antd';
 import { DeleteOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 
 import { Container, FlexContainer, ButtonsContainer } from './styles';
@@ -125,6 +125,26 @@ function Establishments() {
     }
   ];
 
+  const onSearch = useCallback((value: string) => {
+    Api.get(`/establishments?location=${value}`)
+      .then(({ data }) => {
+        const { data: dataValues } = data;
+        setDataSource(
+          dataValues.map((es: Establishment) => ({
+            key: es.id,
+            cnpj: es.cnpj,
+            name: es.name,
+            address: `${es.address.street}, ${es.address.number} - ${es.address.neighborhood}`,
+            city: es.address.city,
+            state: es.address.state
+          }))
+        );
+      })
+      .catch(() => {
+        toast.error(`Falha ao fazer pesquisa`);
+      });
+  }, []);
+
   return (
     <Container>
       <FlexContainer>
@@ -139,6 +159,16 @@ function Establishments() {
           Estabelecimento
         </Button>
       </FlexContainer>
+      <Space
+        direction="vertical"
+        style={{ width: '80%', marginBottom: '1rem' }}
+      >
+        <Input.Search
+          placeholder="buscar..."
+          onSearch={onSearch}
+          style={{ width: '100%' }}
+        />
+      </Space>
       <Table dataSource={dataSource} columns={columns} />
     </Container>
   );
