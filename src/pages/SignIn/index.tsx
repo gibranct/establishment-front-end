@@ -7,6 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Container, FlexContainer, ImgContainer } from './styles';
 import logo from '../../assets/img/logo.webp';
+import ApiAuth from '../../services/Api';
 
 function SignIn() {
   const history = useHistory();
@@ -15,7 +16,12 @@ function SignIn() {
   const handleSubmit = useCallback(
     async (data: any) => {
       try {
-        await signIn({ email: data.email, password: data.password });
+        const jwtToken = await signIn({
+          email: data.email,
+          password: data.password
+        });
+
+        ApiAuth.defaults.headers.authorization = `Bearer ${jwtToken}`;
 
         history.push('/establishments');
       } catch ({ response }) {

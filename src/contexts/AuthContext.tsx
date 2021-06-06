@@ -63,6 +63,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem(TOKEN_KEY, jwtToken);
 
     setData({ token: jwtToken, isAuthenticated: true, username: 'Gibran' });
+
+    return jwtToken;
   }, []);
 
   const signOut = useCallback(() => {

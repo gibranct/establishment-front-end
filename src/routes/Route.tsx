@@ -21,7 +21,7 @@ function RouteWrapper({
   }
 
   if (isAuthenticated && !isPrivate) {
-    return <Redirect to="/establishment" />;
+    return <Redirect to="/establishments" />;
   }
 
   return <Route {...rest} render={() => <Component />} />;
