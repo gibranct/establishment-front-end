@@ -1,13 +1,31 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import { BrowserRouter } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
 import GlobalStyle from './styles/global';
+import Routes from './routes';
+import { AuthProvider } from './contexts/AuthContext';
+import './App.css';
 
 const App = () => {
   return (
     <BrowserRouter>
-      <GlobalStyle />
-      <h1>App</h1>
+      <AuthProvider>
+        <GlobalStyle />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+        />
+        <Routes />
+      </AuthProvider>
     </BrowserRouter>
   );
 };
