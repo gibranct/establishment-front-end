@@ -46,7 +46,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     const token = localStorage.getItem(TOKEN_KEY);
 
     if (token) {
-      return { isAuthenticated: !!token, username: 'Gibran' };
+      const [, payload] = token.split('.');
+      const { userName } = JSON.parse(atob(payload));
+      return { isAuthenticated: !!token, username: userName };
     }
 
     return {} as AuthState;
@@ -62,7 +64,9 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     localStorage.setItem(TOKEN_KEY, jwtToken);
 
-    setData({ token: jwtToken, isAuthenticated: true, username: 'Gibran' });
+    const [, payload] = jwtToken.split('.');
+    const { userName } = JSON.parse(atob(payload));
+    setData({ token: jwtToken, isAuthenticated: true, username: userName });
 
     return jwtToken;
   }, []);
